@@ -353,11 +353,24 @@ exit
 docker run -di --name=容器名称 镜像名称:标签
 ```
 
-登录守护式容器方式：
+登录守护式容器方式一：
 
 ```
 docker exec -it 容器名称 (或者容器ID)  /bin/bash
 ```
+
+登录守护式容器方式二：
+
+279ee79fd451为容器ID
+
+```
+[root@localhost opt]# docker inspect --format "{{.State.Pid}}" 279ee79fd451
+3651
+[root@localhost opt]# nsenter --target 3651 --mount --uts --ipc --net --pid
+root@279ee79fd451:/# 
+```
+
+
 
 ### 3.2.3 停止与启动容器
 
